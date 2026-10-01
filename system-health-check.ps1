@@ -1,3 +1,7 @@
+$reportPath = "$env:USERPROFILE\OneDrive\Desktop\system-health-report.txt"
+
+Start-Transcript -Path $reportPath -Force
+
 Write-Host "====================================="
 Write-Host "   Windows System Health Checker"
 Write-Host "====================================="
@@ -88,3 +92,8 @@ Write-Host ""
 Write-Host "====================================="
 Write-Host "        Health Check Complete"
 Write-Host "====================================="
+Stop-Transcript
+
+Write-Host ""
+Write-Host "Report saved to:"
+Write-Host $reportPath
