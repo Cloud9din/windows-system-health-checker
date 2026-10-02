@@ -2,6 +2,46 @@ $reportPath = "$env:USERPROFILE\OneDrive\Desktop\system-health-report.txt"
 
 Start-Transcript -Path $reportPath -Force
 
+Write-Host ""
+Write-Host "Health Warnings:"
+Write-Host "----------------"
+
+$warningFound = $false
+
+# RAM warning
+$ramUsagePercent = [math]::Round(($usedRAM / $totalRAM) * 100, 0)
+
+if ($ramUsagePercent -ge 80) {
+    Write-Host "WARNING: High memory usage - $ramUsagePercent% used"
+    $warningFound = $true
+}
+
+# Disk warning
+Get-CimInstance Win32_LogicalDisk -Filter "DriveType=3" | ForEach-Object {
+
+    $freeSpaceGB = [math]::Round($_.FreeSpace / 1GB, 2)
+
+    if ($freeSpaceGB -lt 20) {
+        Write-Host "WARNING: Low disk space on drive $($_.DeviceID) - $freeSpaceGB GB free"
+        $warningFound = $true
+    }
+}
+
+# Internet warning
+if (-not $internetTest) {
+    Write-Host "WARNING: Internet connection problem detected"
+    $warningFound = $true
+}
+
+# Uptime warning
+if ($uptime.Days -ge 7) {
+    Write-Host "WARNING: System has not been restarted for $($uptime.Days) days"
+    $warningFound = $true
+}
+
+if (-not $warningFound) {
+    Write-Host "No major system warnings detected."
+}
 Write-Host "====================================="
 Write-Host "   Windows System Health Checker"
 Write-Host "====================================="
