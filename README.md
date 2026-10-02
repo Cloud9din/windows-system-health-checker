@@ -26,6 +26,16 @@ A PowerShell-based system health checker designed for basic Windows troubleshoot
 - Git
 - GitHub
 
+## Report Export
+
+The script automatically creates:
+
+`system-health-report.txt`
+
+The report is saved to the user's Desktop.
+
+This provides a simple record of the diagnostic results for troubleshooting and documentation.
+
 ## Example Warning
 
 ```text
