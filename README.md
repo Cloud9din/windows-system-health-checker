@@ -2,6 +2,10 @@
 
 A PowerShell-based system health checker designed for basic Windows troubleshooting and IT support.
 
+## Screenshot
+
+![Windows System Health Checker](screenshot.png)
+
 ## Features
 
 - Displays computer name and logged-in user
